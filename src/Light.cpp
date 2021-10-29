@@ -8,32 +8,35 @@
 
 #include "Light.h"
 
-Data Light::aleaGenVal()
+void Light::aleaGenVal()
 {
 	srand(time(NULL));
 
-	Data data;
-	if (lastData.type == ESensorType::e_unknown_5)
+	Data<bool> newData;
+	if (m_data.type == ESensorType::e_unknown_5)
 	{
-		data = Data {
+		newData = Data<bool> {
 			type: ESensorType::e_light_3,
-			floatVal: 200 + (float)(rand() % 100 - 50),
+			val: rand() % 100 > 50 ? true : false,
 		};
 	}
 	else
 	{
-		data = Data {
+		newData = Data<bool> {
 			type: ESensorType::e_light_3,
-			floatVal: lastData.floatVal + (rand() % 10 - 5),
+			val: rand() % 100 > 95 ? !m_data.val : m_data.val,
 		};
 	}
 
-	lastData = data;
-
-	return data;
+	m_data = newData;
 }
 
-Light::~Light() {
+Light::Light()
+{
+}
+
+Light::~Light()
+{
 }
 
 

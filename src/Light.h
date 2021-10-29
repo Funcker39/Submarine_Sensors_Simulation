@@ -8,15 +8,19 @@
 #ifndef LIGHT_H_
 #define LIGHT_H_
 
-
 #include "Sensor.h"
 
-class Light : public Sensor
+/*
+ * Light class :
+ * Class inheriting the Sensor superclass, using boolean data type.
+ */
+class Light : public Sensor<bool>
 {
 public:
+	Light();
 	virtual ~Light();
 protected:
-	Data aleaGenVal();
+	void aleaGenVal();
 };
 
 

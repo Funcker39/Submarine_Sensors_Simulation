@@ -8,11 +8,11 @@
 
 #include <iostream>
 #include "Scheduler.h"
-using namespace std;
+
 
 int main()
 {
-	cout << "Submarine Sensor-Manager STARTED" << endl; // prints !!!Hello World!!!
+	std::cout << "Submarine Sensor-Manager STARTED" << std::endl;
 
 	Scheduler();
 

@@ -8,30 +8,34 @@
 
 #include "Temperature.h"
 
-Data Temperature::aleaGenVal()
+void Temperature::aleaGenVal()
 {
 	srand(time(NULL));
 
-	Data data;
-	if (lastData.type == ESensorType::e_unknown_5)
+	Data<float> newData;
+	if (m_data.type == ESensorType::e_unknown_5)
 	{
-		data = Data {
+		newData = Data<float> {
 			type: ESensorType::e_temperature_1,
-			floatVal: 22 + (float)(rand() % 80 - 40) * 0.1,
+			val: 22 + (rand() % 81 - 40) * 0.1,
 		};
 	}
 	else
 	{
-		data = Data {
+		float newVal = m_data.val + (rand() % 21 - 10) * 0.02;
+		if (newVal < 14) newVal = 14;
+		if (newVal > 30) newVal = 30;
+		newData = Data<float> {
 			type: ESensorType::e_temperature_1,
-			floatVal: lastData.floatVal + (rand() % 20 - 10) * 0.02,
+			val: newVal,
 		};
 	}
 
+	m_data = newData;
+}
 
-	lastData = data;
-
-	return data;
+Temperature::Temperature()
+{
 }
 
 Temperature::~Temperature()

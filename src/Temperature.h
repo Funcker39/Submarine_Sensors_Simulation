@@ -10,12 +10,17 @@
 
 #include "Sensor.h"
 
-class Temperature : public Sensor
+/*
+ * Temperature class :
+ * Class inheriting the Sensor superclass, using float data type.
+ */
+class Temperature : public Sensor<float>
 {
 public:
+	Temperature();
 	virtual ~Temperature();
 protected:
-	Data aleaGenVal();
+	void aleaGenVal();
 };
 
 

@@ -8,40 +8,70 @@
 #ifndef SENSOR_H_
 #define SENSOR_H_
 
-#include <windows.h>
+#include "Data.h"
 #include <stdlib.h>
-#include <time.h>
 #include <cmath>
+#include <chrono>
 
 
-enum class ESensorType
-{
-	e_temperature_1,
-	e_humidity_2,
-	e_light_3,
-	e_pression_4,
-	e_unknown_5
-};
-
-struct Data
-{
-	ESensorType type = ESensorType::e_unknown_5;
-	float floatVal;
-	int intVal;
-	bool boolVal;
-};
-
-
+/*
+ * Sensor class :
+ * Abstract class used to define different sensors.
+ * It uses a template type T to allow different sensors (inheriting this class)
+ * to store different type of values in their data attribute
+ */
+template <typename T>
 class Sensor
 {
 public:
 	Sensor();
 	virtual ~Sensor();
-	Data getData();
+
+	/*
+	 * getData method :
+	 * Used to update with aleaGenVal() and
+	 * return the stored "data" member of the
+	 * class with a template type T
+	 */
+	Data<T> getData();
+
 protected:
-	virtual Data aleaGenVal() = 0;
-	Data lastData;
+
+	/*
+	 * aleaGenVal method :
+	 * Used to update the "data" member by simulating
+	 * its variations
+	 */
+	virtual void aleaGenVal();
+
+	/*
+	 * data member :
+	 * Storing the current data of the sensor
+	 */
+	Data<T> m_data;
 };
+
+template <typename T>
+Sensor<T>::~Sensor()
+{
+}
+
+template <typename T>
+Sensor<T>::Sensor()
+{
+}
+
+template <typename T>
+Data<T> Sensor<T>::getData()
+{
+	aleaGenVal();
+	return m_data;
+}
+
+template <typename T>
+void Sensor<T>::aleaGenVal()
+{
+}
 
 
 #endif /* SENSOR_H_ */

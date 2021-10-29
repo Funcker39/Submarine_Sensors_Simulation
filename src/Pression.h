@@ -9,14 +9,22 @@
 #define PRESSION_H_
 
 #include "Sensor.h"
+#include <math.h>
 
-class Pression : public Sensor
+/*
+ * Pression class :
+ * Class inheriting the Sensor superclass, using integer data type.
+ */
+class Pression : public Sensor<int>
 {
 public:
+	Pression();
 	virtual ~Pression();
 protected:
-	Data aleaGenVal();
+	void aleaGenVal();
 };
+
+
 
 
 #endif /* PRESSION_H_ */

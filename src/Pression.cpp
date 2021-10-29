@@ -8,30 +8,36 @@
 
 #include "Pression.h"
 
-Data Pression::aleaGenVal()
+void Pression::aleaGenVal()
 {
 	srand(time(NULL));
 
-	Data data;
-	if (lastData.type == ESensorType::e_unknown_5)
-	{
-		data = Data {
-			type: ESensorType::e_pression_4,
-			floatVal: 1013.25 + (rand() % 1 - .5) * 0.05,
-		};
-	}
-	else
-	{
-		data = Data {
-			type: ESensorType::e_pression_4,
-			floatVal: lastData.floatVal + (rand() % 6 - 3) * 0.01,
-		};
-	}
+		Data<int> newData;
+		if (m_data.type == ESensorType::e_unknown_5)
+		{
+			newData = Data<int> {
+				type: ESensorType::e_pression_4,
+				val: 1013 + (rand() % 100 > 90 ? rand() % 3 - 1 : 0),
+			};
+		}
+		else
+		{
+			int newVal = m_data.val + (rand() % 100 > 60 ? rand() % 3 - 1 : 0);
+			if (newVal < 988) newVal = 988;
+			if (newVal > 1038) newVal = 1038;
+			newData = Data<int> {
+				type: ESensorType::e_pression_4,
+				val: newVal,
+			};
+		}
 
-	lastData = data;
-
-	return data;
+		m_data = newData;
 }
 
-Pression::~Pression() {
+Pression::Pression()
+{
+}
+
+Pression::~Pression()
+{
 }
